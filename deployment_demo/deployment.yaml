@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: hello-world-app
+  name: hello-world-app
+  namespace: argo-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hello-world-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hello-world-app
+    spec:
+      containers:
+        - image: harbor.lic.qihoo.net/lic/consumer_sn_orders:v3
+          name: hello-world-app
+          ports:
+            - containerPort: 8686
+
+      imagePullSecrets:
+        - name: harborpass
+
